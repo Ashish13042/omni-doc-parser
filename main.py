@@ -33,6 +33,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+async def root():
+    return {"status": "Omni-Doc API is completely healthy and running!"}
+
 def extract_text(file_bytes, filename):
     ext = filename.split('.')[-1].lower()
     if ext == 'pdf':
