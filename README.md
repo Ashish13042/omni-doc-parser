@@ -5,6 +5,11 @@
 [![Google Gemini](https://img.shields.io/badge/Google%20Gemini-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)](https://ai.google.dev/)
 [![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 
+<div align="center">
+  <h2>🌟 <b><a href="https://omni-doc-parser.vercel.app/">Try the Live Application</a></b> 🌟</h2>
+  <p><i>Frontend hosted on Vercel | Backend API hosted on <a href="https://omni-doc-parser.onrender.com">Render</a></i></p>
+</div>
+
 **Omni-Doc AI Parser** is a powerful full-stack application that leverages Google's **Gemini 2.5 Flash** to intelligently extract structured data from PDF and DOCX documents based on custom user prompts.
 
 ---
