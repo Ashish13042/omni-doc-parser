@@ -13,7 +13,6 @@
 
 <div align="center">
   <img src="doc-parser-ui/public/screenshots/upload_state.png" alt="Document Upload Area" width="45%" style="margin: 10px;" />
-  <img src="doc-parser-ui/public/screenshots/files_ready.png" alt="Files Ready for AI Extraction" width="45%" style="margin: 10px;" />
   <img src="doc-parser-ui/public/screenshots/custom_prompt.png" alt="Custom Instruction Prompt" width="45%" style="margin: 10px;" />
   <img src="doc-parser-ui/public/screenshots/results_table.png" alt="Extracted Data & CSV Download" width="45%" style="margin: 10px;" />
 </div>
