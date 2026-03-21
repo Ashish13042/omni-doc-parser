@@ -111,7 +111,7 @@ export default function Home() {
           >
             <input 
               type="file" 
-              accept=".pdf,.docx"
+              accept=".pdf,.docx,.xlsx"
               multiple 
               onChange={handleFileSelect}
               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"

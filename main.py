@@ -8,6 +8,7 @@ import docx
 import os
 from dotenv import load_dotenv
 import google.generativeai as genai
+import openpyxl
 
 load_dotenv() # Load variables from .env
 
@@ -45,6 +46,13 @@ def extract_text(file_bytes, filename):
     elif ext == 'docx':
         doc = docx.Document(io.BytesIO(file_bytes))
         return "\n".join([p.text for p in doc.paragraphs])
+    elif ext == 'xlsx':
+        wb = openpyxl.load_workbook(io.BytesIO(file_bytes))
+        text = ""
+        for sheet in wb.worksheets:
+            for row in sheet.iter_rows(values_only=True):
+                text += " ".join([str(cell) for cell in row if cell is not None]) + "\n"
+        return text
     return ""
 
 @app.post("/analyze")
