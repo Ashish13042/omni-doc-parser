@@ -46,18 +46,13 @@ def extract_text(file_bytes, filename):
 @app.post("/analyze")
 async def analyze_documents(prompt: str = Form(...), files: List[UploadFile] = File(...)):
     try:
-        combined_text = ""
-        for file in files:
-            content = await file.read()
-            text = extract_text(content, file.filename)
-            combined_text += f"\n--- START OF {file.filename} ---\n{text}\n--- END OF {file.filename} ---\n"
-
         if GEMINI_API_KEY == "YOUR_API_KEY_HERE" or not GEMINI_API_KEY:
-            raise HTTPException(status_code=400, detail="Please add your Gemini API Key to main.py to use the extraction feature!")
+            raise HTTPException(status_code=400, detail="Please add your Gemini API Key to .env to use the extraction feature!")
 
-        # The Master Prompt: Forcing the AI to act as a Data Engineer
-        ai_prompt = f"""
-        You are an expert data extraction algorithm. Analyze the documents based on the user's prompt.
+        # Prepare multimodal content for Gemini
+        # We start with the Master Prompt instructions
+        ai_master_prompt = f"""
+        You are an expert data extraction algorithm. Analyze the attached documents based on the user's prompt.
         You MUST return ONLY a valid JSON object with this exact structure:
         {{
             "message": "A brief text summary of what you found.",
@@ -68,12 +63,24 @@ async def analyze_documents(prompt: str = Form(...), files: List[UploadFile] = F
         Make the keys in 'extracted_data' highly descriptive based on what the user asked for (e.g., "GST_Number", "Total_Amount", "Date").
         
         USER PROMPT: {prompt}
-        
-        DOCUMENTS:
-        {combined_text}
         """
 
-        response = model.generate_content(ai_prompt)
+        gemini_parts = [ai_master_prompt]
+
+        for file in files:
+            file_bytes = await file.read()
+            if file.filename.lower().endswith('.pdf'):
+                # Send PDF directly as a part for Vision/OCR processing
+                gemini_parts.append({
+                    "mime_type": "application/pdf",
+                    "data": file_bytes
+                })
+            else:
+                # Fallback text extraction for non-PDFs (like .docx)
+                text = extract_text(file_bytes, file.filename)
+                gemini_parts.append(f"\n--- CONTENT OF {file.filename} ---\n{text}\n")
+
+        response = model.generate_content(gemini_parts)
         
         # Convert the AI's string response into a real Python dictionary
         ai_json_data = json.loads(response.text)
