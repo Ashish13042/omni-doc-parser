@@ -10,7 +10,7 @@
   <p><i>Frontend hosted on Vercel | Backend API hosted on <a href="https://omni-doc-parser.onrender.com">Render</a></i></p>
 </div>
 
-**Omni-Doc AI Parser** is a powerful full-stack application that leverages Google's **Gemini 2.5 Flash** to intelligently extract structured data from PDF and DOCX documents based on custom user prompts.
+**Omni-Doc AI Parser** is a powerful full-stack application that leverages Google's **Gemini 2.5 Flash** to intelligently extract structured data from PDF and DOCX documents based on custom user prompts and you can download it as a csv extnesion file.
 
 ---
 
