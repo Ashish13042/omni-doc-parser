@@ -29,8 +29,12 @@ app = FastAPI(title="Omni-Doc AI Parser")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], 
-    allow_methods=["*"],
+    # ONLY change this one!
+    allow_origins=[ 
+        "https://omni-doc-ui.vercel.app" # Use your real Vercel link here
+    ], 
+    allow_credentials=True,
+    allow_methods=["*"], 
     allow_headers=["*"],
 )
 
